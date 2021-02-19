@@ -1,0 +1,219 @@
+    #left-img,#right-img{
+      width: 50px;
+      height: 50px;
+    }
+
+      table{
+        /*table-layout: fixed;*/
+        width: 100%;
+        background-color: grey;
+
+      }
+      img{
+        display: block;
+        position: absolute;
+
+      }
+     #fire{
+      margin-top: -11px;
+      margin-left: -11px;
+      max-width: 40px;
+      max-height: 47px;
+      width: 50px;
+      height: 48px;
+      display: block;
+
+     }
+     #t63,#t13,#t25,#t30,#t40,#t60,#t62,#t65,#t70,#t80,#t90,#t99{
+      background-image: url("../assets/fire.jpg");
+     }
+
+      
+    #flex{
+      margin: 5px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      padding: 10px;
+      justify-content: space-around;
+    }
+  
+    #div1{
+      height: 585px;
+      width: 220px;
+      background-color: lightgrey;
+    }
+     #div2{
+      height: 585px;
+      width: 600px;
+      background-color: black;
+
+    }
+     #div3{
+      height: 585px;
+      width: 220px;
+      background-color: lightgrey;
+    }
+    #one{
+      color: red;
+      margin-left: 80px;
+      margin-top: -150px;
+      width: 50px;
+      height: 50px;
+      position: relative;
+      animation-name: test1;
+      animation-duration: 3s;
+      animation-fill-mode: forwards;
+      
+
+    }
+    #five,#six{
+        width: 30px;
+        height: 30px;
+        visibility: hidden;
+    }
+    #five{
+       animation-name: greenframe;
+      animation-delay: 3s;
+      animation-fill-mode: forwards;
+    }
+     #six{
+       animation-name: blueframe;
+      animation-delay: 6s;
+      animation-fill-mode: forwards;
+    }
+    #left-img,#right-img{
+      width: 30px;
+      height: 30px;
+      visibility: show;
+    }
+     #left-img{
+      animation-name: leftimgframe;
+      animation-delay: 3s;
+      animation-fill-mode: forwards;
+     }
+     #right-img{
+      animation-name: rightimgframe;
+      animation-delay: 6s;
+      animation-fill-mode: forwards;
+     }
+      @keyframes leftimgframe{
+    from{
+        visibility: visible;
+    }
+    to{
+      visibility: hidden;
+    }
+   }
+    @keyframes rightimgframe{
+    from{
+    visibility: visible;
+    }
+    to{
+      visibility: hidden;
+    }
+   }
+   
+   @keyframes greenframe{
+    from{
+    visibility: hidden;
+    }
+    to{
+      visibility: visible;
+    }
+   }
+    @keyframes blueframe{
+    from{
+    visibility: hidden;
+    }
+    to{
+      visibility: visible;
+    }
+   }
+    @keyframes test1{
+          0%{
+        transform: translateY(150px);
+        opacity: 0;
+
+      }
+      20%{
+        transform: translateY(200px);
+          opacity: 1;
+      }
+      40%{
+        transform: translateY(250px);
+         opacity: 0;
+
+      }
+      60%{
+        transform: translateY(300px);
+        opacity: 1;
+
+      }
+      80%{
+        transform: translateY(350px);
+        opacity: 0;
+
+      }
+      100%{
+        transform: translateY(400px);
+        opacity: 1;
+
+      }
+      100%{
+        transform: translateY(450px);
+
+
+      }
+    }
+     #three{
+      color: red;
+      margin-left: 80px;
+      margin-top: -150px;
+      width: 50px;
+      height: 50px;
+      position: relative;
+      animation-delay: 3s;
+      animation-name: test3;
+      animation-duration: 3s;
+      animation-fill-mode: forwards;
+
+
+    }
+    #green{
+      
+    }
+    @keyframes test3{
+      0%{
+        transform: translateY(150px);
+          opacity: 0;
+      }
+      20%{
+        transform: translateY(200px);
+          opacity: 1;
+      }
+      40%{
+        transform: translateY(250px);
+  
+          opacity: 0;
+      }
+      60%{
+        transform: translateY(300px);
+        
+          opacity: 1;
+      }
+      80%{
+        transform: translateY(350px);
+        opacity: 0;
+
+      }
+      100%{
+        transform: translateY(400px);
+        opacity: 1;
+
+      }
+      100%{
+        transform: translateY(450px);
+
+      }
+    }
