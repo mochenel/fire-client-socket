@@ -1,5 +1,5 @@
 
-const socket = io('ws://localhost:4000');
+const socket = io('ws://localhost:3000');
 
 $(function(){
     $('#join-modal').modal('show');
@@ -17,10 +17,34 @@ $(function(){
     $('#play').click(playHandler);
     $('#restart').click(restartHandler);
     $('#exit').click(exitHandler);
+    $('#quit').click(exitHandler);
+    $('#exit-ok').click(exitOKHandler);
 
+    function exitOKHandler(){
+        $('#exit-modal').modal('hide');
+        window.location.replace("hello.html");
+    }
     // exit game
     function exitHandler(){
-
+        const gameID = $('#gameID').val().trim();
+        const username = $('#username').val().trim();
+        const data = {
+            "id":gameID,
+            "username":username
+        }
+        const display = $('#join').css('display').trim();
+        if((gameID == "" || username == "" )){
+            window.location.replace("hello.html");
+            return;
+        }
+        else if(display == 'none'){
+            socket.emit('exit',data);
+           
+        }
+        else {
+            window.location.replace("hello.html");
+            return;
+        }
     }
 
     // user clicks join
@@ -43,7 +67,7 @@ $(function(){
         else{
             $('#join-error').text("")
         }
-
+      
         const joinData = {
             "gameID" : gameID,
             "username":username
@@ -55,9 +79,8 @@ $(function(){
     // user hit play
     function playHandler(){
 
-        let randomNumner = Math.floor((Math.random()*6)+1);
-        randomNumner = 100;
-        playData.squareId = randomNumner;
+        let randomNumber = Math.floor((Math.random()*6)+1);
+        playData.squareId = randomNumber;
         socket.emit('play',playData);
     }
 
@@ -71,6 +94,19 @@ $(function(){
         }
         socket.emit('restart',data);
     }
+    // exit
+    socket.on('exit',function(data){
+        const username = $('#username').val();
+        if(data == 'k15' || data == username){
+            window.location.replace("hello.html");
+        }
+        else{
+            $('#win-modal').modal('hide');
+            $('#exit-modal').modal('show');
+            
+        }
+       
+    })
     // join to play 
     socket.on('join',function(data){
 
@@ -93,6 +129,7 @@ $(function(){
         }
         else{
             $('#join-modal').modal('hide'); // hide modal
+            $('#join').css('display','none')
             $('#room').text(data.id); 
             $('#player').css('display','');
             $('#opponent').css('display','');
@@ -186,6 +223,7 @@ $(function(){
     }
     function displayDie(die,number){
         if(number == 0){
+            $(`#${die}`).attr('src','assets/greenFlag.png');
             return;
         }
 
