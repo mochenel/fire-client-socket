@@ -1,5 +1,5 @@
 
-const socket = io('ws://localhost:4000');
+const socket = io('https://fire-socket-server.herokuapp.com');
 let CHAT = 0;
 
 $(function(){
