@@ -1,10 +1,15 @@
 
-const socket = io('ws://localhost:3000');
+const socket = io('ws://localhost:4000');
+let CHAT = 0;
 
 $(function(){
     $('#join-modal').modal('show');
     $('#join-modal').on('shown.bs.modal',function(){
         $('#gameID').get(0).focus();
+
+    })
+    $('#chat-modal').on('shown.bs.modal',function(){
+        $('#chat-text').get(0).focus();
 
     })
     
@@ -19,10 +24,39 @@ $(function(){
     $('#exit').click(exitHandler);
     $('#quit').click(exitHandler);
     $('#exit-ok').click(exitOKHandler);
+    $('#chat').click(chatHandler);
+    $('#send').click(sendHandler);
+    $('#exit-game').click(exitHandler);
+
+    function sendHandler(){
+        const gameID = $('#gameID').val().trim();
+        const username = $('#username').val().trim();
+        const chatText = $('#chat-text').val().trim();
+        const escapedText = chatText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+
+        if(chatText == ''){
+            return;
+        }
+        const chatData = {
+            "id":gameID,
+            "username":username,
+            "text":escapedText
+        }
+        socket.emit('chat',chatData)
+        $('#chat-text').val("")
+
+        
+    }
+
+    function chatHandler(){
+       $('#chat-modal').modal('show')
+       CHAT = 0;
+       $('#badge').text(CHAT);
+    }
 
     function exitOKHandler(){
         $('#exit-modal').modal('hide');
-        window.location.replace("hello.html");
+        window.location.replace("index.html");
     }
     // exit game
     function exitHandler(){
@@ -34,7 +68,7 @@ $(function(){
         }
         const display = $('#join').css('display').trim();
         if((gameID == "" || username == "" )){
-            window.location.replace("hello.html");
+            window.location.replace("index.html");
             return;
         }
         else if(display == 'none'){
@@ -42,7 +76,7 @@ $(function(){
            
         }
         else {
-            window.location.replace("hello.html");
+            window.location.replace("index.html");
             return;
         }
     }
@@ -67,7 +101,7 @@ $(function(){
         else{
             $('#join-error').text("")
         }
-      
+
         const joinData = {
             "gameID" : gameID,
             "username":username
@@ -94,14 +128,30 @@ $(function(){
         }
         socket.emit('restart',data);
     }
+    // chat
+
+    socket.on('chat',function(data){
+        const {username,text} = data;
+        if(username != $('#username').val()){
+            CHAT = CHAT + 1;
+            $('#badge').text(CHAT);
+
+        }
+    
+        const element = `<div class="chat-text mb-2">
+                            <span > <strong >${username}:</strong> ${text}</span><br>
+                        </div>`
+        $('#chat-data').append(element)
+    })
     // exit
     socket.on('exit',function(data){
         const username = $('#username').val();
         if(data == 'k15' || data == username){
-            window.location.replace("hello.html");
+            window.location.replace("index.html");
         }
         else{
             $('#win-modal').modal('hide');
+            $('#chat-modal').modal('hide');
             $('#exit-modal').modal('show');
             
         }
@@ -222,15 +272,21 @@ $(function(){
         $(`#t${id}`).html(id);
     }
     function displayDie(die,number){
-        if(number == 0){
+
+        if(number > 0 && number < 7){
+            
+        let mapperArray = ["","assets/one.jpg","assets/two.jpg","assets/three.png","assets/four.png","assets/five.jpg","assets/six.jpg"];
+        $(`#${die}`).attr('src',mapperArray[number]);
+
+        return;
+
+        }
+        else{
             $(`#${die}`).attr('src','assets/greenFlag.png');
             return;
         }
 
-        let mapperArray = ["","assets/one.jpg","assets/two.jpg","assets/three.png","assets/four.png","assets/five.jpg","assets/six.jpg"];
-        $(`#${die}`).attr('src',mapperArray[number]);
-       
-        
-        return;
+
     }
+    
 })

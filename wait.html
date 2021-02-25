@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="container" id="game" >
+<div class="" id="game" >
     <h3 class="text-center" id="room"> </h3>
   <div id="flex">
     <div id="div1">
@@ -21,8 +21,20 @@
             
 
             <img id="one" src="images/greenFlag.png">
+            
     </div>
     <div  id="div2">
+      <div class="row justify-content-center">
+      <div class="">
+        <button class="mr-5 btn btn-primary" id="chat">
+          Chat <span class="badge badge-danger" id="badge">0</span>
+        </button>
+      </div>
+      <div class="">
+        <button class="ml-5 btn btn-danger" id="exit-game">Exit</button>
+      </div>
+    </div>
+     
         <table class="table" >
             <tr>
                 <td id="t100" style="background-color:green;">100</td>
@@ -240,6 +252,29 @@
         </div>
       </div>
     </div>
+
+        <!-- chat modal -->
+
+        <div class="modal fade" id="chat-modal"  tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center text-info" >Chat Box</h5>
+                
+              </div>
+              <div class="modal-body" id="chat-data" >
+           
+         
+              
+              </div>
+              <div class="modal-footer">
+                <input type="text" id="chat-text" class="form-control">   
+                <button type="button" class="btn btn-primary" id="send">send</button>
+              </div>
+            
+            </div>
+          </div>
+        </div>
 
 
 <script src="js/bootstrap.bundle.min.js"></script>
